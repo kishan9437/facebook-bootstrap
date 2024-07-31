@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Photos/Video</title>
+<!-- Include jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<style>
+    /* CSS for styling */
+    
+</style>
+</head>
+<body>
+
+    <div>
+        <input type="file" name="" id="addPhoto" style="">
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    // Trigger click event on #addPhotoBtn div
+    $('#addPhotoBtn').click(function() {
+        $('#addPhoto').trigger('click'); // Simulate click on the input field
+    });
+
+    // When a file is selected, hide the input box
+    $('#addPhoto').change(function() {
+        $(this).hide(); // Hide the input box after file selection
+    });
+});
+</script>
+
+</body>
+</html>

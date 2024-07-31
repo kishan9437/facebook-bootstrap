@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Remove Button Borders with jQuery</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Custom CSS -->
+  <style>
+    .col-6 {
+      padding: 0;
+      margin: 0;
+    }
+
+    .custom-button {
+      border: none;
+      outline: none;
+    }
+
+    .active-button {
+      color: blue !important;
+      border-bottom: 2px solid blue;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="edit-btn w-100 position-absolute d-flex float-end justify-content-end align-items-center">
+    <div class="dropdown">
+      <button class="edit-cover-btn bg-white border-0 rounded-3 pt-1 " id="dropdownMenuButton"><i
+          data-visualcompletion="css-img" class="x1b0d499 xep6ejk" aria-hidden="true"
+          style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/v3/y5/r/hfjAwSdyy_q.png&quot;); background-position: 0px -63px; background-size: auto; width: 16px; height: 16px; background-repeat: no-repeat; display: inline-block;"></i>
+        <span class="btn-text position-relative text-hidd">Edit cover photo</span>
+      </button>
+
+      <ul class="dropdown-menu dropdown-width rounded-3 shadow border border-0 ps-2 pe-2"
+        aria-labelledby="dropdownMenuButton">
+        <li><a class="dropdown-item d-flex align-items-center h-36 ps-2 pe-2" id="Choosecoverphoto" href="#"><i
+              data-visualcompletion="css-img" class=""
+              style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/v3/yZ/r/JIwXC87jBOV.png&quot;); background-position: 0px -21px; background-size: 21px 119px; width: 20px; height: 20px; background-repeat: no-repeat; display: inline-block;"></i><span
+              class="text-black fw-bold fs-14 ms-2">Choose cover photo</span></a></li>
+
+              <li>
+                <a class="dropdown-item d-flex align-items-center h-36 ps-2 pe-2" href="#" id="uploadPhotoButton">
+                    <i data-visualcompletion="css-img" style="background-image: url('https://static.xx.fbcdn.net/rsrc.php/v3/yZ/r/JIwXC87jBOV.png'); background-position: 0px -42px; background-size: 21px 119px; width: 20px; height: 20px; background-repeat: no-repeat; display: inline-block;"></i>
+                    <span class="text-black fw-bold fs-14 ms-2">Upload photo</span>
+                </a>
+            </li>
+             
+        <li><a class="dropdown-item d-flex align-items-center h-36 ps-2 pe-2" href="#"><i
+              data-visualcompletion="css-img"
+              style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/v3/y7/r/dTOEo62opvE.png&quot;); background-position: 0px 0px; background-size: 21px 127px; width: 20px; height: 20px; background-repeat: no-repeat; display: inline-block;"></i><span
+              class="text-black fw-bold fs-14 ms-2">Reposition</span></a></li>
+        <li>
+          <hr class="mt-1 mb-1 ms-2 me-2 " style="height: 0.5px;">
+        </li>
+
+        <li><a class="dropdown-item d-flex align-items-center h-36 ps-2 pe-2" href="#"><i
+              data-visualcompletion="css-img"
+              style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/v3/yY/r/FMUGigzCHIm.png&quot;); background-position: 0px -546px; background-size: 21px 677px; width: 20px; height: 20px; background-repeat: no-repeat; display: inline-block;"></i><span
+              class="text-black fw-bold fs-14 ms-2">Remove</span></a></li>
+      </ul>
+    </div>
+
+    <!-- modal bootstrap -->
+    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header text-center
+              ">
+            <h5 class="modal-title w-100 text-center fw-bold" id="exampleModalLabel">Select photo</h5>
+            <button type="button" class="btn-close rounded-pill" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-0 ps-2 pe-2">
+            <div class="d-flex text-center w-100">
+              <div class="col-6"><button class="w-100 pt-2 pb-2 fs-14 bg-white custom-button"
+                  id="recentPhotosBtn">Recent
+                  photos</button></div>
+              <div class="col-6"><button class="w-100 pt-2 pb-2 fs-14 bg-white custom-button" id="photoAlbumsBtn">Photo
+                  Albums</button></div>
+            </div>
+            <div class="w-100 ps-3 pe-1 bg-white h-100 mt-3 d-flex gap-2 flex-wrap scroolbar" id="imageContainer">
+              <div class="post-width"><img src="img/nine-img.jpg" alt="friend" class="w-100 h-100 border-left"></div>
+              <div class="post-width"><img src="img/first-img.jpg" alt="friend" class="w-100 h-100"></div>
+              <div class="post-width"><img src="img/second-img.jpg" alt="friend" class="w-100 h-100 border-right"></div>
+              <!-- More images -->
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery Script -->
+    <script>
+      $(document).ready(function () {
+        $("#dropdownMenuButton").click(function () {
+          $(this).next('.dropdown-menu').toggle();
+        })
+        // Hide dropdown menu when clicking outside
+        $(document).click(function (e) {
+          var target = e.target
+          if (!$(target).is("#dropdownMenuButton") && !$(target).closest(".dropdown").length) {
+            $(".dropdown-menu").hide();
+          }
+        });
+        $(document).ready(function () {
+          $('#Choosecoverphoto').click(function (e) {
+            e.preventDefault();
+            $('#myModal').modal('show');
+          });
+        });
+
+        function setInitialActiveButton() {
+          // Check if localStorage has an active button stored
+          var activeButton = localStorage.getItem('activeButton');
+          if (activeButton === 'photoAlbumsBtn') {
+            // Activate Photo Albums button
+            $('#photoAlbumsBtn').addClass('active-button').css('color', 'blue').css('border-bottom', '3px solid blue');
+          } else {
+            // Activate Recent photos button by default
+            $('#recentPhotosBtn').addClass('active-button').css('color', 'blue').css('border-bottom', '3px solid blue');
+          }
+        }
+
+        $('#myModal').on('shown.bs.modal', function () {
+          // Make Recent photos button active
+          setInitialActiveButton();
+        });
+
+        // click event for recent photo btn
+        $("#recentPhotosBtn").click(function () {
+          // remove active class from all button
+          $('.custom-button').removeClass('active-button').css('color', '').css('border-bottom', '');
+          // Add active class for click button
+          $(this).addClass('active-button').css('color', 'blue').css('border-bottom', '3px solid blue');
+        })
+        // click event for Photo Albums
+        $("#photoAlbumsBtn").click(function () {
+          // remove active class from all button
+          $('.custom-button').removeClass('active-button').css('color', '').css('border-bottom', '');
+          // Add active class for click button
+          $(this).addClass('active-button').css('color', 'blue').css('border-bottom', '3px solid blue');
+        })
+      });
+         $(document).ready(function() {
+        $('#uploadPhotoButton').click(function(e) {
+            e.preventDefault(); // Prevent default link behavior (optional)
+            
+            // Create a file input element
+            var fileInput = $('<input type="file">');
+
+            // Trigger click event to open file dialog
+            fileInput.click();
+            
+            // Handle selected file (optional)
+            fileInput.change(function() {
+                var selectedFile = this.files[0];
+                console.log('Selected file:', selectedFile);
+                // You can perform upload logic here
+                // For example, submit the form or send the file to a server via AJAX
+            });
+        });
+      
+
+    </script>
+</body>
+
+</html>
